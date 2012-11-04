@@ -34,7 +34,12 @@ TIME_ZONE = 'America/Chicago'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
+_ = lambda s: s
+LANGUAGES = ( 
+    ( 'en', _( u'English' ) ),
+    ( 'ru', _( u'Russian' ) ),
+ )
 
 SITE_ID = 1
 
@@ -73,6 +78,8 @@ STATICFILES_DIRS = (
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    APPPATH + 'info/static',
+    APPPATH + 'service/static',
     APPPATH + 'main/static',
     APPPATH + 'common/static',
     APPPATH + 'compass/static',
@@ -96,6 +103,7 @@ TEMPLATE_LOADERS = (
  )
 
 MIDDLEWARE_CLASSES = ( 
+    'localeurl.middleware.LocaleURLMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -115,6 +123,8 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
+    APPPATH + 'info/templates',
+    APPPATH + 'service/templates',
     APPPATH + 'main/templates',
     APPPATH + 'common/templates',
     APPPATH + 'compass/templates',
@@ -149,11 +159,15 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
 
+
     'mptt',
     'tinymce',
     'slugify',
+    'localeurl',
 
     'common',
+    'service',
+    'info',
  )
 
 # A sample logging configuration. The only tangible logging
@@ -246,3 +260,10 @@ EMAIL_HOST_PASSWORD = 'craZZyDemon357x'
 EMAIL_USE_TLS = True
 
 USE_DJANGO_JQUERY = True
+
+
+LOCALE_INDEPENDENT_PATHS = ( 
+    r'^/admin/',
+#    r'^/games/',
+#    r'^/ajax/',
+ )
