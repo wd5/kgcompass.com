@@ -1,24 +1,30 @@
 # Django settings for compass project.
 
-DEBUG = True
+import os
+
+IN_PRODUCTION = True
+
+try:
+    from local_settings import *
+except ImportError, e:
+    pass
+
+DEBUG = not IN_PRODUCTION
 TEMPLATE_DEBUG = DEBUG
 
-ADMINS = (
-    # ('Your Name', 'your_email@example.com'),
-)
+ADMINS = ( 
+    ( 'Dan Tyan', 'dan.tyan@gmail.com' ),
+ )
 
 MANAGERS = ADMINS
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',  # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': 'compass',  # Or path to database file if using sqlite3.
-        'USER': 'compass',  # Not used with sqlite3.
-        'PASSWORD': '',                  # Not used with sqlite3.
-        'HOST': '',                      # Set to empty string for localhost. Not used with sqlite3.
-        'PORT': '',                      # Set to empty string for default. Not used with sqlite3.
-    }
-}
+if IN_PRODUCTION:
+    DOCROOT = '/home/zokisoft/www/zokiguide/'
+    APPPATH = '/home/zokisoft/django/zokiguide/'
+else:
+    DOCROOT = '/home/dan/www/django/compass/'
+    APPPATH = '/home/dan/www/django/compass/'
+
 
 # Local time zone for this installation. Choices can be found here:
 # http://en.wikipedia.org/wiki/List_of_tz_zones_by_name
@@ -63,31 +69,33 @@ STATIC_ROOT = ''
 STATIC_URL = '/static/'
 
 # Additional locations of static files
-STATICFILES_DIRS = (
+STATICFILES_DIRS = ( 
     # Put strings here, like "/home/html/static" or "C:/www/django/static".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-)
+    APPPATH + 'main/static',
+    APPPATH + 'common/static',
+    APPPATH + 'compass/static',
+ )
 
 # List of finder classes that know how to find static files in
 # various locations.
-STATICFILES_FINDERS = (
+STATICFILES_FINDERS = ( 
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
-)
+ )
 
-# Make this unique, and don't share it with anybody.
-SECRET_KEY = 'yn4v^o2l5)k+y&amp;qjos+o0s2r7&amp;(r6qec0*=l5i9xtv-6)esr2('
+
 
 # List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
+TEMPLATE_LOADERS = ( 
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
 #     'django.template.loaders.eggs.Loader',
-)
+ )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = ( 
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -95,31 +103,58 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+ )
 
 ROOT_URLCONF = 'compass.urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'compass.wsgi.application'
 
-TEMPLATE_DIRS = (
+TEMPLATE_DIRS = ( 
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-)
+    APPPATH + 'main/templates',
+    APPPATH + 'common/templates',
+    APPPATH + 'compass/templates',
+ )
 
-INSTALLED_APPS = (
+TEMPLATE_CONTEXT_PROCESSORS = ( 
+    'django.contrib.auth.context_processors.auth',
+    'django.contrib.messages.context_processors.messages',
+    'django.core.context_processors.debug',
+    'django.core.context_processors.i18n',
+    'django.core.context_processors.media',
+    'django.core.context_processors.static',
+    'django.core.context_processors.request',
+    'django.core.context_processors.csrf',
+    'compass.context_processors.custom',
+#    'blog.context_processors.common',
+ )
+
+INSTALLED_APPS = ( 
+
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'grappelli',
+
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admindocs',
-)
+
+    'mptt',
+    'tinymce',
+    'slugify',
+
+    'common',
+ )
 
 # A sample logging configuration. The only tangible logging
 # performed by this configuration is to send an email to
@@ -149,3 +184,65 @@ LOGGING = {
         },
     }
 }
+
+#--------------------------------
+# debug toolbar
+#--------------------------------
+if DEBUG:
+    MIDDLEWARE_CLASSES += ( 'debug_toolbar.middleware.DebugToolbarMiddleware', )
+    INSTALLED_APPS += ( 'debug_toolbar', )
+    DEBUG_TOOLBAR_CONFIG = {
+        'INTERCEPT_REDIRECTS': False,
+    }
+
+
+#--------------------------------
+# bootstrap form
+#--------------------------------
+
+INSTALLED_APPS += ( 'bootstrapform', )
+
+
+# ## SOUTH: BEGIN
+INSTALLED_APPS += ( 'south', )
+SKIP_SOUTH_TESTS = True
+SOUTH_TESTS_MIGRATE = False
+# ## SOUTH: END
+
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.filebased.FileBasedCache',
+        'LOCATION': '/tmp/django_cache',
+    }
+}
+
+TINYMCE_JS_ROOT = STATIC_URL + 'js/tiny_mce/'
+TINYMCE_JS_URL = STATIC_URL + 'js/tiny_mce/tiny_mce.js'
+TINYMCE_DEFAULT_CONFIG = {
+    'plugins': "table,spellchecker,paste,searchreplace",
+    'theme': "advanced",
+}
+
+
+INTERNAL_IPS = ( '127.0.0.1', )
+
+
+STATUS_CHOICES = ( 
+    ( 'active', 'active' ),
+    ( 'inactive', 'inactive' ),
+    ( 'draft', 'draft' ),
+    ( 'deleted', 'deleted' ),
+ )
+
+SEND_BROKEN_LINK_EMAILS = True
+
+DEFAULT_FROM_EMAIL = 'compass.caeg@gmail.com'
+
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = "587"
+EMAIL_HOST_USER = DEFAULT_FROM_EMAIL
+EMAIL_HOST_PASSWORD = 'craZZyDemon357x'
+EMAIL_USE_TLS = True
+
+USE_DJANGO_JQUERY = True

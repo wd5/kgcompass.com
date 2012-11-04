@@ -1,0 +1,98 @@
+body {
+  font-family: 'Trebuchet MS', 'Lucida Grande', Verdana, Geneva, Sans-serif;
+  font-size: 87.5%;
+  background-color: #f8f8f8;
+  padding-top: 20px;
+  color: #666;
+}
+a,
+a:link,
+a:visited,
+a:active {
+  color: #6da3bd;
+}
+a:hover {
+  color: #4D7285;
+}
+h1,
+h2,
+h3 {
+  margin-bottom: 10px;
+}
+.rounded-blocks {
+  background-color: #fff;
+  border-radius: 5px;
+  overflow: hidden;
+  padding: 5px;
+}
+.container {
+  padding: 10px;
+}
+#top-banner,
+#top-menu,
+#content,
+#footer {
+  margin-bottom: 20px;
+}
+#logo {
+  font-size: 24px;
+  font-style: italic;
+  margin-bottom: 10px;
+}
+#logo a {
+  text-decoration: none;
+}
+#slogan {
+  font-size: 18px;
+  font-style: italic;
+}
+#slogan a {
+  text-decoration: none;
+}
+#top-banner {
+  height: 200px;
+  border-radius: 5px;
+}
+#top-banner img {
+  width: 940px;
+  height: 200px;
+}
+#content {
+  border: 1px solid #ddd;
+  background-color: #fff;
+  border-radius: 5px;
+}
+#top-menu .nav-pills {
+  margin-bottom: 0px;
+}
+.nav-pills li {
+  margin-left: 10px;
+}
+.bs-docs-sidenav .icon-chevron-right {
+  float: right;
+  margin-right: -6px;
+  margin-top: 2px;
+  opacity: 0.25;
+}
+.bs-docs-sidenav > li > a:hover {
+  background-color: #F5F5F5;
+}
+.bs-docs-sidenav a:hover .icon-chevron-right {
+  opacity: 0.5;
+}
+.bs-docs-sidenav .active .icon-chevron-right,
+.bs-docs-sidenav .active a:hover .icon-chevron-right {
+  background-image: url("../img/glyphicons-halflings-white.png");
+  opacity: 1;
+}
+.bs-docs-sidenav,
+.bs-docs-sidebar {
+  width: 220px;
+}
+.service-page h4 {
+  padding-left: 15px;
+}
+.nav-tabs > li > a {
+  padding-bottom: 7px;
+  padding-top: 7px;
+}
