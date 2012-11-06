@@ -267,3 +267,5 @@ LOCALE_INDEPENDENT_PATHS = (
 #    r'^/games/',
 #    r'^/ajax/',
  )
+LOCALEURL_USE_ACCEPT_LANGUAGE = True
+LOCALE_REDIRECT_PERMANENT = False
