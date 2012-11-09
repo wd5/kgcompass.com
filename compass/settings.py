@@ -10,6 +10,7 @@ except ImportError, e:
     pass
 
 DEBUG = not IN_PRODUCTION
+#DEBUG = False
 TEMPLATE_DEBUG = DEBUG
 
 ADMINS = ( 
@@ -18,9 +19,11 @@ ADMINS = (
 
 MANAGERS = ADMINS
 
+
+
 if IN_PRODUCTION:
-    DOCROOT = '/home/zokisoft/www/zokiguide/'
-    APPPATH = '/home/zokisoft/django/zokiguide/'
+    DOCROOT = '/home/zokisoft/www/kgcompass/'
+    APPPATH = '/home/zokisoft/django/kgcompass/'
 else:
     DOCROOT = '/home/dan/www/django/compass/'
     APPPATH = '/home/dan/www/django/compass/'
@@ -34,7 +37,8 @@ TIME_ZONE = 'America/Chicago'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'ru'
+
 _ = lambda s: s
 LANGUAGES = ( 
     ( 'en', _( u'English' ) ),
@@ -56,18 +60,18 @@ USE_TZ = True
 
 # Absolute filesystem path to the directory that will hold user-uploaded files.
 # Example: "/home/media/media.lawrence.com/media/"
-MEDIA_ROOT = ''
+MEDIA_ROOT = DOCROOT + 'media/'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash.
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-MEDIA_URL = ''
+MEDIA_URL = '/media/'
 
 # Absolute path to the directory static files should be collected to.
 # Don't put anything in this directory yourself; store your static files
 # in apps' "static/" subdirectories and in STATICFILES_DIRS.
 # Example: "/home/media/media.lawrence.com/static/"
-STATIC_ROOT = ''
+STATIC_ROOT = DOCROOT + 'static/'
 
 # URL prefix for static files.
 # Example: "http://media.lawrence.com/static/"
@@ -139,7 +143,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     'django.core.context_processors.static',
     'django.core.context_processors.request',
     'django.core.context_processors.csrf',
-    'compass.context_processors.custom',
+#    'compass.context_processors.custom',
 #    'blog.context_processors.common',
  )
 
@@ -269,3 +273,13 @@ LOCALE_INDEPENDENT_PATHS = (
  )
 LOCALEURL_USE_ACCEPT_LANGUAGE = True
 LOCALE_REDIRECT_PERMANENT = False
+
+#CSRF_COOKIE_SECURE = True
+
+
+#INSTALLED_APPS += ( 'compressor', )
+#STATICFILES_FINDERS += (
+#    'compressor.finders.CompressorFinder',
+# )
+#COMPRESS_ENABLED = True
+#COMPRESS_OUTPUT_DIR = 'cache'

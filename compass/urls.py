@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from main.views import HomeView
 
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
@@ -9,7 +10,8 @@ urlpatterns = patterns('',
     url( r'^grappelli/', include( 'grappelli.urls' ) ),
     url( r'^tinymce/', include( 'tinymce.urls' ) ),
     # Examples:
-    url( r'^$', 'main.views.home', name = 'home' ),
+    url( r'^$', HomeView.as_view(), name = 'home' ),
+#    url( r'^$', 'main.views.home', name = 'home' ),
     # url(r'^compass/', include('compass.foo.urls')),
     url( r'^info/', include( 'info.urls' ) ),
     url( r'^service/', include( 'service.urls' ) ),
