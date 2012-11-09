@@ -45,25 +45,20 @@
 			</div>
 	
 			<div class="span9">
-				<section id="programs">
-					<h3 style="margin-top:0px; line-height: 25px;">Проведение программ</h3>
-				</section>
-	            <section id="transport">
-					<h3>Транспорт</h3>
-	                <h4>Трансферы</h4>
-	                <h4>Встреча в аэропорту</h4>
-				</section>
-				<section id="visa-support">
-					<h3>Визовая поддержка</h3>
-	                <h4>Порядок получения визы</h4>
-	                <h4>Список стран не нуждающиеся в визе</h4>
-				</section>
-				<section id="hotel-booking">
-					<h3>Бронирование гостиниц</h3>
-				</section>
-				<section id="city-tour">
-					<h3>Сити тур</h3>
-				</section>
+				{{ page.title_ru }}
+				
+				{% for child in  children %}
+				    <div>
+				    {% if LANGUAGE_CODE == 'ru' %}
+				        {{ child.title_ru }}
+				    {% else %}
+				        {{ child.title_en }}
+				    {% endif %}
+				    </div>
+				    
+				{% empty %}
+				    no children
+				{% endfor %}
 			</div>
 		</div>
     </div>

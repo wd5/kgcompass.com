@@ -87,6 +87,7 @@ STATICFILES_DIRS = (
     APPPATH + 'main/static',
     APPPATH + 'common/static',
     APPPATH + 'compass/static',
+    APPPATH + 'region/static',
  )
 
 # List of finder classes that know how to find static files in
@@ -132,6 +133,7 @@ TEMPLATE_DIRS = (
     APPPATH + 'main/templates',
     APPPATH + 'common/templates',
     APPPATH + 'compass/templates',
+    APPPATH + 'region/templates',
  )
 
 TEMPLATE_CONTEXT_PROCESSORS = ( 
@@ -172,6 +174,7 @@ INSTALLED_APPS = (
     'common',
     'service',
     'info',
+    'region',
  )
 
 # A sample logging configuration. The only tangible logging
@@ -238,8 +241,11 @@ CACHES = {
 TINYMCE_JS_ROOT = STATIC_URL + 'js/tiny_mce/'
 TINYMCE_JS_URL = STATIC_URL + 'js/tiny_mce/tiny_mce.js'
 TINYMCE_DEFAULT_CONFIG = {
-    'plugins': "table,spellchecker,paste,searchreplace",
+    'plugins': "table,spellchecker,paste,searchreplace,autoresize",
     'theme': "advanced",
+    'theme_advanced_resizing' : 'true',
+    'width':'600',
+
 }
 
 

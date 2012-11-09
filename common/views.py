@@ -10,3 +10,10 @@ class CommonTemplateView( TemplateView ):
         cxt['random_background'] = random.randrange( 0, 12 )
         cxt['settings'] = settings
         return cxt
+    
+    def log( self, *args ):
+       import logging
+       # Get an instance of a logger
+       logger = logging.getLogger()
+       logger.debug( *args )
+

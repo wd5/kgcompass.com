@@ -28,11 +28,13 @@ class CommonPage( MPTTModel ):
     class Meta:
         abstract = True
 
-#    class MPTTMeta:
-#        order_insertion_by = ['title']
-
     def __unicode__( self ):
         return self.title_en
 
-#    def slug( self ):
-#        return slugify( self.title )
+    def slug_ru( self ):
+        return slugify( self.title_ru )
+
+    def slug_en( self ):
+        return slugify( self.title_en )
+
+
